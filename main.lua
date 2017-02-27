@@ -112,7 +112,7 @@ local function draw_noodle(first, last, color)
 
 	local len = first:dist(last)
 	local pos = cpml.utils.clamp((len - arrow_length * 1.5) / len, 0, 1)
-	love.graphics.rotate(last:angle_to(cpml.vec2(bezier:evaluate(pos)))-math.pi/2)
+	--love.graphics.rotate(last:angle_to(cpml.vec2(bezier:evaluate(pos)))-math.pi/2)
 
 	love.graphics.polygon("fill", -arrow_width, -arrow_length, arrow_width, -arrow_length, 0, 0)
 	love.graphics.pop()
