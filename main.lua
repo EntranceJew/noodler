@@ -23,9 +23,18 @@ local node_combo = {
 }
 
 local function reload_nodes_for_combo()
-	local k, v
-	for k, v in pairs(nodes) do
-		table.insert(node_combo.items, k)
+	local files = love.filesystem.getDirectoryItems("src/nodes")
+	local fname = ""
+	for _, file in ipairs(files) do
+		local req = nil
+		fname = file:match("(.+)%..+")
+		req = require("nodes."..fname)
+		if req.new ~= nil then
+			nodes[fname] = req.new
+			table.insert(node_combo.items, fname)
+		else
+			print("WARNING: node '"..fname.."' has no new method or is empty.")
+		end
 	end
 end
 
