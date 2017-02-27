@@ -432,9 +432,19 @@ function love.mousemoved(x, y, dx, dy, istouch)
 end
 
 function love.textinput(text)
-	ui:textinput(text)
+	if overlay:textinput(text) then
+		return
+	end
+	if ui:textinput(text) then
+		return
+	end
 end
 
 function love.wheelmoved(x, y)
-	ui:wheelmoved(x, y)
+	if overlay:wheelmoved(x, y) then
+		return
+	end
+	if ui:wheelmoved(x, y) then
+		return
+	end
 end
