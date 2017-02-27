@@ -16,6 +16,20 @@ local nodes = {
 	mix = require("nodes.math-mix").new,
 	number_view = require("nodes.view-number").new
 }
+local node_combo = {
+	value = 1,
+	items = {
+	},
+}
+
+local function reload_nodes_for_combo()
+	local k, v
+	for k, v in pairs(nodes) do
+		table.insert(node_combo.items, k)
+	end
+end
+
+reload_nodes_for_combo()
 
 local tree = graph()
 tree.debug = true
@@ -272,8 +286,8 @@ function love.update(dt)
 
 	if nk.windowBegin("toolbar", 0, 0, size.x, 40) then
 		nk.layoutRow("dynamic", 30, 3)
-		if nk.button("Add Node") then
-			nodes.mix(tree, cpml.vec2())
+		if nk.combobox(node_combo, node_combo.items) then
+			nodes[node_combo.items[node_combo.value]](tree, cpml.vec2())
 		end
 		nk.spacing(1)
 		if nk.button("Build & Run") then
